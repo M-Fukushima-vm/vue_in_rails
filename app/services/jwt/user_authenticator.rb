@@ -19,7 +19,7 @@ module Jwt::UserAuthenticator
     # 呼んだ call メソッドで
       # jwtの実データをpayload、jwtの(種別情報を含む)ヘッダー情報を_、へそれぞれ代入
     # payloadのデータを元にユーザーを探す
-      # (=>application_controller.rb の curreent_userアクション内に飛ばす)
+      # (=>application_controller.rb の current_userアクション内に飛ばす)
       payload, _ = Jwt::TokenDecryptor.call(token)
       User.find(payload['user_id'])
     # エラーが起きた時のアクション
@@ -27,6 +27,7 @@ module Jwt::UserAuthenticator
       # nil を返す
       nil
     end
+    # debugger
   end
 
   private
