@@ -8,6 +8,7 @@
 require("@rails/ujs").start();
 require("@rails/activestorage").start();
 require("channels");
+require("plugins/dayjs");
 
 import Vue from "vue";
 import App from "../app.vue";
