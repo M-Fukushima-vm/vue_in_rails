@@ -5,8 +5,8 @@
         <div>
           <!-- vuex:authモジュールのgetters.currentUserで値が取得できたら -->
           <div class="mb-5" v-if="$store.getters['auth/currentUser']">
-            <!-- MicropostForm.vue createMicropostメソッドの
-            イベントを受け取って反映・表示 -->
+            <!-- MicropostForm.vue の createdイベントを受け取ったら
+            createMicropostメソッド実行 -->
             <micropost-form @created="createMicropost"></micropost-form>
           </div>
           <!-- TimelineList.vueに -->
