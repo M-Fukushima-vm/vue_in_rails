@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Api::Sessions", type: :request do
-  describe 'POST /session' do
+  describe 'POST /api/session' do
     let!(:user) { create(:user) }
     context '認証情報が正しい場合' do
       let(:session_params) { { session: { email: user.email, password: '12345678' } } }
