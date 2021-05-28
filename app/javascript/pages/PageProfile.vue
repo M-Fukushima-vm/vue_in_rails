@@ -18,7 +18,7 @@
                   >
                     <v-btn
                       icon
-                      @click="toggleAvatarUpload"
+                      @click="$refs.avatarUploadDialog.toggleShow()"
                       style="width: 100%; height: 100%;"
                     >
                       <v-icon color="secondary">mdi-camera</v-icon>
@@ -28,9 +28,7 @@
               </v-img>
             </v-avatar>
             <!-- child -->
-            <template v-if="avatarUpload">
-              <avatar-upload ref="avatarUploadDialog" @close=""></avatar-upload>
-            </template>
+            <avatar-upload ref="avatarUploadDialog" @close=""></avatar-upload>
             <!-- /child -->
             <v-spacer></v-spacer>
             <v-btn
@@ -101,7 +99,6 @@ export default {
   data() {
     return {
       targetUser: null,
-      avatarUpload: false,
     };
   },
   components: {
@@ -140,11 +137,6 @@ export default {
     const res = await axios.get(`/api/users/${this.userId}`);
     // resデータのuserを targetUserに代入
     this.targetUser = res.data.user;
-  },
-  methods: {
-    toggleAvatarUpload() {
-      this.avatarUpload = !this.avatarUpload;
-    },
   },
 };
 </script>
