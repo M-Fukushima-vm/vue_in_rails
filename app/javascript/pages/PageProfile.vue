@@ -28,7 +28,7 @@
               </v-img>
             </v-avatar>
             <!-- child -->
-            <avatar-upload ref="avatarUploadDialog" @close=""></avatar-upload>
+            <avatar-upload ref="avatarUploadDialog"></avatar-upload>
             <!-- /child -->
             <v-spacer></v-spacer>
             <v-btn

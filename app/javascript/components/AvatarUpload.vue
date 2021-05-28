@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import AvatarUpload from "vue-image-crop-upload";
+import AvatarUpload from "vue-image-crop-upload/upload-2.vue";
 export default {
   data() {
     return {
