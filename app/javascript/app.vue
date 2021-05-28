@@ -11,11 +11,27 @@
           </v-list-item-content>
         </v-list-item>
 
-        <!-- vuex:authモジュールのstateに値がある(ログインしている)場合 -->
-        <v-list-item link v-if="$store.getters['auth/currentUser']">
+        <!-- vuex:authモジュールのstateに値がある(ログインしている)場合 1 -->
+        <v-list-item
+          to="/profile"
+          link
+          v-if="$store.getters['auth/currentUser']"
+        >
           <v-list-item-action>
             <v-icon>mdi-account</v-icon>
           </v-list-item-action>
+
+          <v-list-item-content>
+            <v-list-item-title>プロフィール</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <!-- vuex:authモジュールのstateに値がある(ログインしている)場合 2 -->
+        <v-list-item link v-if="$store.getters['auth/currentUser']">
+          <v-list-item-action>
+            <v-icon>mdi-logout</v-icon>
+          </v-list-item-action>
+
           <v-list-item-content>
             <v-list-item-title @click="logout">ログアウト</v-list-item-title>
           </v-list-item-content>

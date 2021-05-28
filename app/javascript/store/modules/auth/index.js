@@ -43,9 +43,16 @@ const actions = {
     const res = await axios.post(`/api/session`, sessionParams);
     commit("SET_CURRENT_USER", res.data.user);
   },
-
   logout({ commit }) {
     commit("CLEAR_CURRENT_USER");
+  },
+  async updateProfile({ commit, state }, userParams) {
+    const res = await axios.patch(`/api/me/account`, userParams);
+    // resデータで"SET_CURRENT_USER"を使って、state.currentUser の置き換え
+    commit("SET_CURRENT_USER", {
+      ...res.data.user,
+      ...{ token: state.currentUser.token },
+    });
   },
 };
 
