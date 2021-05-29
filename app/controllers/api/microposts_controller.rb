@@ -2,10 +2,17 @@ class Api::MicropostsController < ApplicationController
   # ...現在ログイン中のuserでなければエラーを発生させる
   # 継承元：application.controller の authenticateアクションより
   before_action :authenticate, only: %i[create update destroy]
+  PAGINATES_PAR = 10
   
   def index
     microposts = Micropost.includes(:user).order(created_at: :desc)
-    render json: microposts, each_serializer: MicropostSerializer
+                          .page(params[:page]).per(PAGINATES_PAR)
+    render json: microposts, each_serializer: MicropostSerializer,
+                  meta: {
+                    total_pages: microposts.total_pages,
+                    total_count: microposts.total_count,
+                    current_page: microposts.current_page
+                  }
   end
 
   def create
