@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <div>
+        <div class="pb-10">
           <!-- vuex:authモジュールのgetters.currentUserで値が取得できたら -->
           <div class="mb-5" v-if="$store.getters['auth/currentUser']">
             <!-- MicropostForm.vue の createdイベントを受け取ったら
@@ -16,11 +16,21 @@
           <timeline-list
             :microposts="microposts"
             v-if="isExistMicroposts"
+            class="mb-5"
           ></timeline-list>
           <!-- "isExistMicroposts"じゃない時はこっちを表示(v-else) -->
           <div class="text-center" v-else>
             一件もありません
           </div>
+          <template v-if="pagingMeta">
+            <div class="text-center">
+              <v-pagination
+                v-model="pagingMeta.current_page"
+                :length="pagingMeta.total_pages"
+                @input="paging"
+              ></v-pagination>
+            </div>
+          </template>
         </div>
       </v-col>
     </v-row>
@@ -34,6 +44,8 @@ export default {
   data() {
     return {
       microposts: [],
+      currentPage: 1, // created()が走る前の、初期値として追加
+      pagingMeta: null, // created()が走る前の、エラー回避用に追加
     };
   },
   components: {
@@ -52,9 +64,12 @@ export default {
   methods: {
     // https://qiita.com/soarflat/items/1a9613e023200bbebcb3#await%E3%81%A8%E3%81%AF
     async fetchMicroposts() {
-      const res = await axios.get(`/api/microposts`);
+      const res = await axios.get(`/api/microposts`, {
+        params: { page: this.currentPage },
+      });
       // await の結果を待ってから
       this.microposts = res.data.microposts;
+      this.pagingMeta = res.data.meta; // pagingMeta として取り出す
       // を実行する
     },
     async createMicropost(micropostContent) {
@@ -72,6 +87,12 @@ export default {
       this.microposts = [...[res.data.micropost], ...this.microposts];
       // スプレッド演算子による配列連結
       // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+    },
+    paging(pageNumber) {
+      // pageNumber* クリックによって @input で帰ってくるナンバー
+      this.currentPage = pageNumber;
+      this.fetchMicroposts();
+      this.$vuetify.goTo(0);
     },
   },
 };
