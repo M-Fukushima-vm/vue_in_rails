@@ -6,6 +6,8 @@ import PageUserLogin from "@/pages/PageUserLogin";
 import PageTimeline from "@/pages/PageTimeline";
 import PageMicropostDetail from "@/pages/PageMicropostDetail";
 import PageProfile from "@/pages/PageProfile";
+import PageUsers from "@/pages/PageUsers";
+
 const router = new VueRouter({
   // 名前付きルートの割り当て
   //  https://router.vuejs.org/ja/guide/essentials/named-routes.html
@@ -21,6 +23,7 @@ const router = new VueRouter({
     },
     { path: "/profile", component: PageProfile, name: "user-profile" },
     { path: "/users/:id", component: PageProfile, name: "user-profile" },
+    { path: "/users", component: PageUsers, name: "users" },
   ],
 });
 
