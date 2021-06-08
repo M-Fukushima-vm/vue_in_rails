@@ -2,7 +2,9 @@ class Api::UsersController < ApplicationController
   PAGINATES_PAR = 12
 
   def index
-    users = User.order(created_at: :desc).page(params[:page]).per(PAGINATES_PAR)
+    # users = User.order(created_at: :desc).page(params[:page]).per(PAGINATES_PAR)
+    search_users_form = SearchUsersForm.new(search_params)
+    users = search_users_form.search.order(created_at: :desc).page(params[:page]).per(PAGINATES_PAR)
     render json: users, each_serializer: UserSerializer,
                         meta: {
                           total_pages: users.total_pages,
@@ -27,5 +29,11 @@ class Api::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def search_params
+    # 送るパラメーターをqハッシュでまとめ
+    # params[:q] が nil だったら、nil。あれば、以降を実行
+    params[:q]&.permit(:name, tag_ids: [])
   end
 end
