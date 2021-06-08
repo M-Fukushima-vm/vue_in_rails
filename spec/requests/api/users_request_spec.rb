@@ -13,6 +13,7 @@ RSpec.describe "Api::Users", type: :request do
           include(
               'id' => user.id,
               'name' => user.name,
+              'tags' => be_a(Array)
           )
         })
       end
