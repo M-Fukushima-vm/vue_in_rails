@@ -21,7 +21,7 @@ const router = new VueRouter({
       component: PageMicropostDetail,
       name: "micropost-detail",
     },
-    { path: "/profile", component: PageProfile, name: "user-profile" },
+    { path: "/profile", component: PageProfile, name: "my-profile" },
     { path: "/users/:id", component: PageProfile, name: "user-profile" },
     { path: "/users", component: PageUsers, name: "users" },
   ],
