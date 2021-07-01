@@ -61,7 +61,7 @@
           <v-card-text class="text--primary" style="min-height: 64px;">
             <v-chip
               class="ma-1"
-              color="orange"
+              color="grey"
               text-color="white"
               small
               v-for="tag in user.tags"
@@ -90,7 +90,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row justify="center">
+    <v-row justify="center" class="pb-10">
       <template v-if="pagingMeta">
         <div class="text-center">
           <v-pagination
